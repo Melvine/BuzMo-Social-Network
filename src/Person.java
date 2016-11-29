@@ -3,6 +3,12 @@
  */
 
 public class Person {
+    String name;
+    String phone;
+    String password;
+    String screenname = "";
+    String topicwords;
+
 //    person(String email, String password){
 //        //check user in database
 //        //login user

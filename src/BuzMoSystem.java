@@ -6,7 +6,7 @@ import java.sql.* ;
 
 public class BuzMoSystem {
     public static void main(String[] args) {
-
+        System.out.println("hello world");
         //DATABASE CREDENTIALS
         try{
             Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -27,11 +27,10 @@ public class BuzMoSystem {
         catch(Exception e){System.out.println(e);}
 
         //INITIATE USER INTERFACE
-        //Put these methods into GraphicInterface.java
-        JFrame frame = new JFrame("BuzMo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(350,100);
-        frame.setVisible(true);
+        GraphicInterface ui = new GraphicInterface();
+        ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ui.setSize(350,100);
+        ui.setVisible(true);
     }
 
     /*
