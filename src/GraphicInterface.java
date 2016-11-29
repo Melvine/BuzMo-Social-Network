@@ -36,25 +36,51 @@ public class GraphicInterface extends JFrame{
  		  add(passField);
       loginButton = new JButton("Login");
   		add(loginButton);
+      registerButton = new JButton("Register");
+  		add(registerButton);
 
-      loginHandler event = new loginHandler();
-      loginField.addActionListener(event);
-  		passField.addActionListener(event);
-  		loginButton.addActionListener(event);
+      loginHandler loginEvent = new loginHandler();
+      RegisterInterface registerEvent = new RegisterInterface();
+
+      loginField.addActionListener(loginEvent);
+  		passField.addActionListener(loginEvent);
+  		loginButton.addActionListener(loginEvent);
+      registerButton.addActionListener(registerEvent);
    }
 
 
-   //handles Email and Pass
+   //LOGIN - handles Email and Pass
  	private class loginHandler implements ActionListener{
  		public void actionPerformed(ActionEvent event){
         first = loginField.getText();
 				second = passField.getText();
 
         sys.login(first, second);
-        JOptionPane.showMessageDialog(null, "You are now logged in, ");
+        JOptionPane.showMessageDialog(null, "You are now logged in ");
 
     }
   }
+
+  //REGISTER - handles Email and Pass
+ private class RegisterInterface implements ActionListener{
+   public void actionPerformed(ActionEvent event){
+      textField1 = new JTextField("", 20);
+      add(loginField);
+      textField2 = new JTextField("", 20);
+      add(passField);
+      textField3 = new JTextField("", 10);
+      add(loginField);
+      textField4 = new JTextField("", 20);
+      add(passField);
+      textField5 = new JTextField("", 10);
+      registerButton = new JButton("Register");
+      add(registerButton);
+
+       sys.login(first, second);
+       JOptionPane.showMessageDialog(null, "You are now registered ");
+
+   }
+ }
 
 
 

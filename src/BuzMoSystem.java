@@ -6,7 +6,7 @@ import java.sql.* ;
 
 public class BuzMoSystem {
     Person user;
-    //Connection con;
+    Connection con;
 
     public static void main(String[] args) {
         //DATABASE CREDENTIALS
@@ -38,57 +38,47 @@ public class BuzMoSystem {
     System Features
     */
     BuzMoSystem(){
-      // try{
-      //     Class.forName("oracle.jdbc.driver.OracleDriver");
-      //     String url = "jdbc:oracle:thin:@uml.cs.ucsb.edu:1521:xe";
-      //     String username = "mnguyen00";
-      //     String password = "782";
-      //
-      //     con= DriverManager.getConnection(url,username, password);
-      //   }
-      //   catch(Exception e){System.out.println(e);}
-    }
-
-    public void login(String em, String pw){
-
-      //search for User in DB
-      // try{
-      //     Statement st = con.createStatement();
-      //     String sql = "SELECT * FROM mnguyen00.person WHERE email='" + em + "' AND password='" + pw + "'";
-      //     System.out.println(sql);
-      //     ResultSet rs = st.executeQuery(sql);
-      //     System.out.println("outside");
-      //     while(rs.next()){
-      //         System.out.println("inside");
-      //         //store Person info into user
-      //         user = new Person(rs.getString("email"), rs.getString("name"), rs.getString("phone_num"), rs.getString("screen_name"), rs.getString("password"));
-      //         System.out.println(rs.getString("email"));
-      //         con.close();
-      //     }
-      // }
-      // catch(Exception e){System.out.println(e);}
       try{
           Class.forName("oracle.jdbc.driver.OracleDriver");
           String url = "jdbc:oracle:thin:@uml.cs.ucsb.edu:1521:xe";
           String username = "mnguyen00";
           String password = "782";
 
-          Connection con= DriverManager.getConnection(url,username, password);
+          con= DriverManager.getConnection(url,username, password);
+        }
+        catch(Exception e){System.out.println(e);}
+    }
+
+    public void login(String em, String pw){
+
+      //search for User in DB
+      try{
           Statement st = con.createStatement();
 
-          String sql = "SELECT * FROM mnguyen00.abc WHERE name='" + em + "'";
+          String sql = "SELECT * FROM mnguyen00.person WHERE email= '" + em + "' AND password='" + pw + "'";
           System.out.println(sql);
           ResultSet rs = st.executeQuery(sql);
 
           while(rs.next())
-              System.out.println(rs.getString("email")); //MODIFY PRINT TO FIT YOUR QUERY AND ATTRIBUTE TYPES
+              user = new Person(rs.getString("email"), rs.getString("name"), rs.getString("phone_num"), rs.getString("screen_name"), rs.getString("password"));
           con.close();
       }
       catch(Exception e){System.out.println(e);}
+      System.out.println(user.getPhoneNum());
     }
 
     public void register(){
+      //search for User in DB
+      try{
+          Statement st = con.createStatement();
 
+          String sql = "INSERT INTO * FROM mnguyen00.person VALUES()";
+          System.out.println(sql);
+          ResultSet rs = st.executeQuery(sql);
+
+          con.close();
+      }
+      catch(Exception e){System.out.println(e);}
     }
 
     public void SearchUser(){

@@ -27,9 +27,9 @@ public class Person {
        return name;
      }
 //
-//    public String GetPhoneNum(){
-//
-//    }
+   public String getPhoneNum(){
+     return phone;
+   }
 //
 //    public String GetScreenName(){
 //
