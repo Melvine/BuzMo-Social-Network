@@ -5,43 +5,89 @@ import javax.swing.JFrame;
 import java.sql.* ;
 
 public class BuzMoSystem {
+    Person user;
+    //Connection con;
+
     public static void main(String[] args) {
-        System.out.println("hello world");
         //DATABASE CREDENTIALS
-        try{
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            String url = "jdbc:oracle:thin:@uml.cs.ucsb.edu:1521:xe";
-            String username = "user";
-            String password = "pass";
-
-            Connection con= DriverManager.getConnection(url,username, password);
-            Statement st = con.createStatement();
-
-            String sql = "SELECT * FROM mnguyen00.abc";
-            ResultSet rs = st.executeQuery(sql);
-
-            while(rs.next())
-                System.out.println(rs.getString("name")); //MODIFY PRINT TO FIT YOUR QUERY AND ATTRIBUTE TYPES
-            con.close();
-        }
-        catch(Exception e){System.out.println(e);}
+        // try{
+        //     Class.forName("oracle.jdbc.driver.OracleDriver");
+        //     String url = "jdbc:oracle:thin:@uml.cs.ucsb.edu:1521:xe";
+        //     String username = "mnguyen00";
+        //     String password = "782";
+        //
+        //     Connection con= DriverManager.getConnection(url,username, password);
+        //     Statement st = con.createStatement();
+        //
+        //     String sql = "SELECT * FROM mnguyen00.abc";
+        //     ResultSet rs = st.executeQuery(sql);
+        //
+        //     while(rs.next())
+        //         System.out.println(rs.getString("name")); //MODIFY PRINT TO FIT YOUR QUERY AND ATTRIBUTE TYPES
+        //     con.close();
+        // }
+        // catch(Exception e){System.out.println(e);}
 
         //INITIATE USER INTERFACE
-        GraphicInterface ui = new GraphicInterface();
-        ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ui.setSize(350,100);
-        ui.setVisible(true);
+        GraphicInterface test = new GraphicInterface();
+    		test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    		test.setSize(350,100);
+    		test.setVisible(true);
     }
-
     /*
     System Features
     */
-
-    public void Login(){
-
+    BuzMoSystem(){
+      // try{
+      //     Class.forName("oracle.jdbc.driver.OracleDriver");
+      //     String url = "jdbc:oracle:thin:@uml.cs.ucsb.edu:1521:xe";
+      //     String username = "mnguyen00";
+      //     String password = "782";
+      //
+      //     con= DriverManager.getConnection(url,username, password);
+      //   }
+      //   catch(Exception e){System.out.println(e);}
     }
 
-    public void Register(){
+    public void login(String em, String pw){
+
+      //search for User in DB
+      // try{
+      //     Statement st = con.createStatement();
+      //     String sql = "SELECT * FROM mnguyen00.person WHERE email='" + em + "' AND password='" + pw + "'";
+      //     System.out.println(sql);
+      //     ResultSet rs = st.executeQuery(sql);
+      //     System.out.println("outside");
+      //     while(rs.next()){
+      //         System.out.println("inside");
+      //         //store Person info into user
+      //         user = new Person(rs.getString("email"), rs.getString("name"), rs.getString("phone_num"), rs.getString("screen_name"), rs.getString("password"));
+      //         System.out.println(rs.getString("email"));
+      //         con.close();
+      //     }
+      // }
+      // catch(Exception e){System.out.println(e);}
+      try{
+          Class.forName("oracle.jdbc.driver.OracleDriver");
+          String url = "jdbc:oracle:thin:@uml.cs.ucsb.edu:1521:xe";
+          String username = "mnguyen00";
+          String password = "782";
+
+          Connection con= DriverManager.getConnection(url,username, password);
+          Statement st = con.createStatement();
+
+          String sql = "SELECT * FROM mnguyen00.abc WHERE name='" + em + "'";
+          System.out.println(sql);
+          ResultSet rs = st.executeQuery(sql);
+
+          while(rs.next())
+              System.out.println(rs.getString("email")); //MODIFY PRINT TO FIT YOUR QUERY AND ATTRIBUTE TYPES
+          con.close();
+      }
+      catch(Exception e){System.out.println(e);}
+    }
+
+    public void register(){
 
     }
 

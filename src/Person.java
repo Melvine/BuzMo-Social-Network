@@ -3,28 +3,29 @@
  */
 
 public class Person {
+    String email;
     String name;
     String phone;
     String password;
     String screenname = "";
     String topicwords;
 
-//    person(String email, String password){
-//        //check user in database
-//        //login user
-//    }
-//    person(String e, String n, String p, String sn, String pw){
-//        //update database
-//        //return User
-//    }
+
+   Person(String e, String n, String pn, String sn, String pw){
+       name = n;
+       email = e;
+       phone = pn;
+       password = pw;
+       screenname = sn;
+    }
 //
 //    public static void UpdateProfile(){
 //
 //    }
 //
-//    public String GetName(){
-//
-//    }
+     public String getName(){
+       return name;
+     }
 //
 //    public String GetPhoneNum(){
 //
