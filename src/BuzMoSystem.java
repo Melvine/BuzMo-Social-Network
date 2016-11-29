@@ -67,18 +67,27 @@ public class BuzMoSystem {
       System.out.println(user.getPhoneNum());
     }
 
-    public void register(){
+    public void register(String em, String n, String pn, String sn, String pw){
       //search for User in DB
       try{
           Statement st = con.createStatement();
 
-          String sql = "INSERT INTO * FROM mnguyen00.person VALUES()";
+          String sql = "INSERT INTO * FROM mnguyen00.person VALUES('" + em + "', " +
+            "'" + n + "', " +
+            "'" + pn + "', " +
+            sn + ", " +
+            "'" + pw + "')";
           System.out.println(sql);
-          ResultSet rs = st.executeQuery(sql);
+          st.executeUpdate(sql);
+          //ResultSet rs = st.executeQuery(sql);
 
-          con.close();
+          //con.close();
       }
       catch(Exception e){System.out.println(e);}
+
+      
+
+
     }
 
     public void SearchUser(){
