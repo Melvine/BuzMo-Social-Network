@@ -4,11 +4,11 @@
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
 import javax.swing.*;
-import javax.swing.JOptionPane;
 
 
-public class GraphicInterface extends JFrame{
+public class GraphicInterface{
    //login UI
    private String first, second;
    private JTextField loginField;
@@ -23,64 +23,127 @@ public class GraphicInterface extends JFrame{
    private JTextField textField4;
    private JTextField textField5;
    private JTextField textField6;
+
+   private JLabel jLabel1;
+
+   private JPanel loginPanel;
+   private JPanel registerPanel;
+
    BuzMoSystem sys = new BuzMoSystem();
+   LoginPanel lPanel = new LoginPanel();
+   RegisterPanel rPanel = new RegisterPanel();
+   UserPanel uPanel = new UserPanel();
+
+   JPanel prevPanel = lPanel;
+   CardLayout layout = new CardLayout();
+   JPanel cardPanel = new JPanel(layout);
 
 
    GraphicInterface(){
-      super("Library OS");
-      setLayout(new FlowLayout());
 
-      loginField = new JTextField("", 10);
- 		  add(loginField);
- 	    passField = new JTextField("", 10);
- 		  add(passField);
-      loginButton = new JButton("Login");
-  		add(loginButton);
-      registerButton = new JButton("Register");
-  		add(registerButton);
+      cardPanel.add(lPanel, "login");
+      cardPanel.add(rPanel, "register");
+      cardPanel.add(uPanel, "userface");
 
-      loginHandler loginEvent = new loginHandler();
-      RegisterInterface registerEvent = new RegisterInterface();
+      JFrame frame = new JFrame("BuzMo");
+      frame.add(cardPanel);
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      frame.pack();
+      frame.setVisible(true);
 
-      loginField.addActionListener(loginEvent);
-  		passField.addActionListener(loginEvent);
-  		loginButton.addActionListener(loginEvent);
-      registerButton.addActionListener(registerEvent);
+      // RegisterListener registerEvent = new RegisterListener();
+
+
+  		// passField.addActionListener(loginEvent);
+  		// loginButton.addActionListener(loginEvent);
+      // registerButton.addActionListener(registerEvent);
+   }
+
+   //GENERIC BUTTON LoginListener
+   private class ButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+            if ("Login".equals(command)) {
+                layout.show(cardPanel, "login");
+            } else if ("Register".equals(command)) {
+                layout.show(cardPanel, "register");
+            }
+        }
+    }
+
+   //  //LOGIN - handles Email and Pass
+   private class LoginListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+            first = loginField.getText();
+            second = passField.getText();
+
+
+            if(sys.login(first, second)){
+              layout.show(cardPanel, "userface");
+            };
+            JOptionPane.showMessageDialog(null, "You are now logged in ");
+        }
+    }
+
+   class LoginPanel extends JPanel{
+     LoginPanel(){
+       loginField = new JTextField("", 10);
+       passField = new JTextField("", 10);
+       loginButton = new JButton("Login");
+       registerButton = new JButton("Register");
+       add(loginField);
+       add(passField);
+       add(loginButton);
+       add(registerButton);
+       loginField.addActionListener(new LoginListener());
+       passField.addActionListener(new LoginListener());
+       loginButton.addActionListener(new LoginListener());
+       registerButton.addActionListener(new ButtonListener());
+     }
+   }
+
+   class RegisterPanel extends JPanel{
+     RegisterPanel(){
+       textField1 = new JTextField("Name", 20);
+       textField2 = new JTextField("hi", 20);
+       textField3 = new JTextField("hi", 10);
+       textField4 = new JTextField("hi", 20);
+       textField5 = new JTextField("hi", 10);
+       registerButton = new JButton("Register Account");
+       add(textField1);
+       add(textField2);
+       add(textField3);
+       add(textField4);
+       add(textField5);
+       add(registerButton);
+       registerButton.addActionListener(new RegisterListener());
+     }
+   }
+
+   class UserPanel extends JPanel{
+     UserPanel(){
+       add(new JLabel("welcome"));
+     }
    }
 
 
-   //LOGIN - handles Email and Pass
- 	private class loginHandler implements ActionListener{
- 		public void actionPerformed(ActionEvent event){
-        first = loginField.getText();
-				second = passField.getText();
-
-        sys.login(first, second);
-        JOptionPane.showMessageDialog(null, "You are now logged in ");
-
+  private class RegisterListener implements ActionListener{
+    public void actionPerformed(ActionEvent event){
+        //add(registerPanel);
+        JOptionPane.showMessageDialog(null, "You are now registered ");
     }
   }
 
   //REGISTER - handles Email and Pass
- private class RegisterInterface implements ActionListener{
-   public void actionPerformed(ActionEvent event){
-      textField1 = new JTextField("", 20);
-      add(loginField);
-      textField2 = new JTextField("", 20);
-      add(passField);
-      textField3 = new JTextField("", 10);
-      add(loginField);
-      textField4 = new JTextField("", 20);
-      add(passField);
-      textField5 = new JTextField("", 10);
-      registerButton = new JButton("Register");
-      add(registerButton);
-
-       sys.login(first, second);
-       JOptionPane.showMessageDialog(null, "You are now registered ");
-
-   }
- }
+ // private class RegisterHandler implements ActionListener{
+ //   public void actionPerformed(ActionEvent event){
+ //
+ //
+ //   }
+ // }
 
 
 

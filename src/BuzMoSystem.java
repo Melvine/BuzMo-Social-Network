@@ -1,8 +1,9 @@
 /**
  * Created by Melvine on 11/27/16.
  */
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.sql.* ;
+import java.awt.BorderLayout;
 
 public class BuzMoSystem {
     Person user;
@@ -30,9 +31,6 @@ public class BuzMoSystem {
 
         //INITIATE USER INTERFACE
         GraphicInterface test = new GraphicInterface();
-    		test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    		test.setSize(350,100);
-    		test.setVisible(true);
     }
     /*
     System Features
@@ -49,7 +47,7 @@ public class BuzMoSystem {
         catch(Exception e){System.out.println(e);}
     }
 
-    public void login(String em, String pw){
+    public boolean login(String em, String pw){
 
       //search for User in DB
       try{
@@ -65,6 +63,13 @@ public class BuzMoSystem {
       }
       catch(Exception e){System.out.println(e);}
       System.out.println(user.getPhoneNum());
+
+      if(user != null){
+        System.out.println("true");
+        return true;
+      }
+      else
+        return false;
     }
 
     public void register(){
