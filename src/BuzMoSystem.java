@@ -30,8 +30,13 @@ public class BuzMoSystem {
         // catch(Exception e){System.out.println(e);}
 
         //INITIATE USER INTERFACE
-        GraphicInterface test = new GraphicInterface();
+        //GraphicInterface test = new GraphicInterface();
+        BuzMoSystem sys = new BuzMoSystem();
+
+        sys.SearchUser("ChrisBrown@gmail.com");
+
     }
+
     /*
     System Features
     */
@@ -79,29 +84,42 @@ public class BuzMoSystem {
     }
 
     public void register(String em, String n, String pn, String sn, String pw){
+        //search for User in DB
+        try{
+            Statement st = con.createStatement();
 
+            String sql = "INSERT INTO mnguyen00.person VALUES('" + em + "', " +
+              "'" + n + "', " +
+              "'" + pn + "', '" +
+              sn + "', " +
+              "'" + pw + "')";
+            System.out.println(sql);
+            st.executeUpdate(sql);
+            con.close();
+
+        }catch(Exception e){System.out.println(e);}
     }
 
     public void SearchUser(String searchWord){
 
         //search by email, phonenumber, screenname
 
-        // try{
-        //   Statement st = con.createStatement();
-        //   String sql = "SELECT * FROM mnguyen00.person WHERE email = '" + searchWord +
-        //             "' OR phone_num = '"+searchWord+ "' OR screen_name = '"+searchWord+"'";
-        //   System.out.println(sql);
-        //   ResultSet rs = st.executeQuery(sql);
+        try{
+          Statement st = con.createStatement();
+          String sql = "SELECT * FROM mnguyen00.person WHERE email = '" + searchWord +
+                    "' OR phone_num = '"+searchWord+ "' OR screen_name = '"+searchWord+"'";
+          System.out.println(sql);
+          ResultSet rs = st.executeQuery(sql);
 
-        //   while(rs.next())
-        //       user = new Person(rs.getString("email"), rs.getString("name"), rs.getString("phone_num"), rs.getString("screen_name"), rs.getString("password"));
-        //   con.close();
+          while(rs.next()){
+            System.out.println(rs.getString("name"));
+          }
+          con.close();
 
-        // }
+        }
 
-        // catch(Exception e){System.out.println(e);}
-        // System.out.println(user.getPhoneNum());
-          
+        catch(Exception e){System.out.println(e);}
+
     }
 
     public void UserSummary(){
