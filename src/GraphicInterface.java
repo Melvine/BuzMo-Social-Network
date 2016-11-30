@@ -10,7 +10,7 @@ import javax.swing.*;
 
 public class GraphicInterface{
    //login UI
-   private String first, second;
+   private String input1, input2, input3, input4, input5;
    private JTextField loginField;
    private JTextField passField;
 
@@ -75,17 +75,28 @@ public class GraphicInterface{
    //  //LOGIN - handles Email and Pass
    private class LoginListener implements ActionListener {
 
-        public void actionPerformed(ActionEvent e) {
-            String command = e.getActionCommand();
-            first = loginField.getText();
-            second = passField.getText();
+        public void actionPerformed(ActionEvent event) {
+            input1 = loginField.getText();
+            input2 = passField.getText();
 
 
-            if(sys.login(first, second)){
+            if(sys.login(input1, input2)){
               layout.show(cardPanel, "userface");
             };
             JOptionPane.showMessageDialog(null, "You are now logged in ");
         }
+    }
+
+    private class RegisterListener implements ActionListener{
+      public void actionPerformed(ActionEvent event){
+          input1 = textField1.getText();
+          input2 = textField2.getText();
+          input3 = textField3.getText();
+          input4 = textField4.getText();
+          input5 = textField5.getText();
+          sys.register(input1,input2,input3,input4,input5);
+          JOptionPane.showMessageDialog(null, "You are now registered ");
+      }
     }
 
    class LoginPanel extends JPanel{
@@ -107,11 +118,11 @@ public class GraphicInterface{
 
    class RegisterPanel extends JPanel{
      RegisterPanel(){
-       textField1 = new JTextField("Name", 20);
-       textField2 = new JTextField("hi", 20);
-       textField3 = new JTextField("hi", 10);
-       textField4 = new JTextField("hi", 20);
-       textField5 = new JTextField("hi", 10);
+       textField1 = new JTextField("", 20);
+       textField2 = new JTextField("", 20);
+       textField3 = new JTextField("", 10);
+       textField4 = new JTextField("", 20);
+       textField5 = new JTextField("", 10);
        registerButton = new JButton("Register Account");
        add(textField1);
        add(textField2);
@@ -130,12 +141,7 @@ public class GraphicInterface{
    }
 
 
-  private class RegisterListener implements ActionListener{
-    public void actionPerformed(ActionEvent event){
-        //add(registerPanel);
-        JOptionPane.showMessageDialog(null, "You are now registered ");
-    }
-  }
+
 
   //REGISTER - handles Email and Pass
  // private class RegisterHandler implements ActionListener{
