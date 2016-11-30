@@ -78,15 +78,15 @@ public class BuzMoSystem {
             sn + ", " +
             "'" + pw + "')";
           System.out.println(sql);
-          st.executeUpdate(sql);
+          ResultSet rs = st.executeQuery(sql);
 
           while(rs.next())
               user = new Person(rs.getString("email"), rs.getString("name"), rs.getString("phone_num"), rs.getString("screen_name"), rs.getString("password"));
           con.close();
 
-          //ResultSet rs = st.executeQuery(sql);
+          
 
-          //con.close();
+          
       }
       catch(Exception e){System.out.println(e);}
 
