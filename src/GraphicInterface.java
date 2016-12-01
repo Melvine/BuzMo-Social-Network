@@ -356,12 +356,12 @@ public class GraphicInterface{
       //         .addComponent(jButton1))
       //  );
 
-      //  add(scrollPane);
-      //  add(jButton2);
-       //
-      //  add(user_input);
-      //  add(jButton1);
-       //add(jButton2);
+       add(scrollPane);
+       add(jButton2);
+
+       add(user_input);
+       add(jButton1);
+       add(jButton2);
 
        jButton1.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent event){
