@@ -14,12 +14,6 @@ public class BuzMoSystem {
     System Features
     */
     BuzMoSystem(){
-      
-    }
-
-    public boolean login(String em, String pw){
-
-      //search for User in DB
       try{
           Class.forName("oracle.jdbc.driver.OracleDriver");
           String url = "jdbc:oracle:thin:@uml.cs.ucsb.edu:1521:xe";
@@ -28,6 +22,14 @@ public class BuzMoSystem {
 
           con= DriverManager.getConnection(url,username, password);
 
+        }
+        catch(Exception e){System.out.println(e);}
+    }
+
+    public boolean login(String em, String pw){
+
+      //search for User in DB
+      try{
           Statement st = con.createStatement();
 
           String sql = "SELECT * FROM mnguyen00.person WHERE email= '" + em + "' AND password='" + pw + "'";
@@ -47,14 +49,6 @@ public class BuzMoSystem {
       }
       else
         return false;
-    }
-
-    public void logout(){
-        //update in database
-        try{
-          user = null;
-          con.close();
-        }catch(Exception e){System.out.println(e);}
     }
 
     public void register(String em, String n, String pn, String sn, String pw){
@@ -104,12 +98,12 @@ public class BuzMoSystem {
       }
 
     }
-    
+
     public ArrayList<String> searchTopic(String searchWord){
 
         //search by topic word
         ArrayList<String> result = new ArrayList<String>();
-        
+
 
           try{
             Statement st = con.createStatement();
@@ -117,19 +111,19 @@ public class BuzMoSystem {
             System.out.println(sql);
             ResultSet rs = st.executeQuery(sql);
 
-            
+
 
             while(rs.next()){
               result.add(rs.getString("user_email"));
               System.out.println(rs.getString("user_email"));
             }
           }
-        
+
         catch(Exception e){System.out.println(e);}
-        
+
         return result;
     }
-    
+
     public ArrayList<String> searchUser(String searchWord){
 
         //search by email, phonenumber, screenname
@@ -154,7 +148,7 @@ public class BuzMoSystem {
         return result;
     }
 
-    
+
 
     public void requestFriend(String receiver){
         //update in database
