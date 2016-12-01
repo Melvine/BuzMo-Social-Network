@@ -16,6 +16,7 @@ public class GraphicInterface{
    private JTextField passField;
 
    private JButton loginButton;
+   private JButton logoutButton;
    private JButton registerButton;
 
    private JButton myManagerButton;
@@ -41,6 +42,7 @@ public class GraphicInterface{
    UserSearchPanel usPanel = new UserSearchPanel();
    RequestFriendPanel rfPanel = new RequestFriendPanel();
    AcceptFriendPanel afPanel = new AcceptFriendPanel();
+   MyCirclePanel mcPanel = new MyCirclePanel();
 
    JPanel prevPanel = lPanel;
    CardLayout layout = new CardLayout();
@@ -55,6 +57,7 @@ public class GraphicInterface{
       cardPanel.add(usPanel, "usersearch");
       cardPanel.add(rfPanel, "requestfriend");
       cardPanel.add(afPanel, "acceptfriend");
+      cardPanel.add(mcPanel, "mycircle");
 
 
       JFrame frame = new JFrame("BuzMo");
@@ -83,6 +86,10 @@ public class GraphicInterface{
               layout.show(cardPanel,"requestfriend");
             }else if("Accept Friends".equals(command)){
               layout.show(cardPanel,"acceptfriend");
+            }else if("Logout".equals(command)){
+              sys.logout();
+              layout.show(cardPanel,"login");
+               JOptionPane.showMessageDialog(null, "You have logged out");
             }
         }
     }
@@ -115,8 +122,10 @@ public class GraphicInterface{
 
             if(sys.login(loginInput, passInput)){
               layout.show(cardPanel, "userface");
+              JOptionPane.showMessageDialog(null, "You are now logged in ");
+            }else{
+              JOptionPane.showMessageDialog(null, "Wrong Credentials ");
             };
-            //JOptionPane.showMessageDialog(null, "You are now logged in ");
         }
     }
 
@@ -173,6 +182,7 @@ public class GraphicInterface{
        friendRequestsButton = new JButton("Request Friends");
        //groupRequestsButton = new JButton("Group Requests");
        userSearchButton = new JButton("Search Users");
+       logoutButton = new JButton("Logout");
 
        add(new JLabel("welcome"));
 
@@ -185,12 +195,14 @@ public class GraphicInterface{
        add(addFriendButton);
        add(friendRequestsButton);
        add(userSearchButton);
+       add(logoutButton);
 
        userSearchButton.addActionListener(new ButtonListener());
        myCircleButton.addActionListener(new ButtonListener());
        friendRequestsButton.addActionListener(new ButtonListener());
        addFriendButton.addActionListener(new ButtonListener());
        myFriendsButton.addActionListener(new MyFriendsListener());
+       logoutButton.addActionListener(new ButtonListener());
      }
    }
 
@@ -306,21 +318,58 @@ public class GraphicInterface{
 
        jButton3.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent event){
-             // String userOption = opList.getSelectItem();
-             // if(userOption == "accept"){
-             //   updateFriendRequestTable(user_email,friend_email,'1');
-             // }else{
-             //   updateFriendRequestTable(user_email,friend_email,'0');
-             // }
-
-             //if right box return 1, if left box return 0
-             //if 1, get user email and requester email add to FriendList
-             //else
-             //if 0 or 1 delete off requestfriend db
-             //if 0 or 1 return back to home
              JOptionPane.showMessageDialog(null, sys.listFriendRequests(sys.user.getEmail()));
          }
        });
+     }
+   }
+
+   class MyCirclePanel extends JPanel{
+     MyCirclePanel(){
+       setPreferredSize(new Dimension(700, 100));
+       JTextArea textArea = new JTextArea();
+       JScrollPane scrollPane = new JScrollPane(textArea);
+       textArea.setEditable(false);
+       JTextField user_input = new JTextField("", 20);
+       JButton jButton1 = new JButton("Send");
+       JButton jButton2 = new JButton("Home");
+       jButton1.setPreferredSize(new Dimension(100, 50));
+       jButton2.setPreferredSize(new Dimension(100, 50));
+
+      //  setVerticalGroup(createSequentialGroup()
+      //     .addGroup(createParallelGroup(GroupLayout.Alignment.BASELINE)
+      //         .addComponent(scrollPane)
+      //     .addGroup(createParallelGroup(GroupLayout.Alignment.LEADING))
+      //         .addComponent(user_input)
+      //         .addComponent(jButton2)
+      //         .addComponent(jButton1))
+      //  );
+
+      //  add(scrollPane);
+      //  add(jButton2);
+       //
+      //  add(user_input);
+      //  add(jButton1);
+       //add(jButton2);
+
+       jButton1.addActionListener(new ActionListener(){
+         public void actionPerformed(ActionEvent event){
+            //  String input1 = user_input.getText();
+            //  System.out.println(sys.user.getEmail());
+             //
+            //  ArrayList<String> r = sys.searchUser(input1);
+            //  String r_str = "";
+             //
+            //  for(int i = 0; i < r.size(); i++){
+            //    r_str += r.get(i) + "\n";
+            //  }
+
+             //JOptionPane.showMessageDialog(null, r_str);
+         }
+       });
+
+       jButton2.addActionListener(new ButtonListener());
+
      }
    }
 
