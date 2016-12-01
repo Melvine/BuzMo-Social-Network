@@ -98,7 +98,32 @@ public class BuzMoSystem {
       }
 
     }
+    
+    public ArrayList<String> searchTopic(String searchWord){
 
+        //search by topic word
+        ArrayList<String> result = new ArrayList<String>();
+        
+
+          try{
+            Statement st = con.createStatement();
+            String sql = "SELECT * FROM mnguyen00.TopicWord WHERE word = '" +searchWord+"'";
+            System.out.println(sql);
+            ResultSet rs = st.executeQuery(sql);
+
+            
+
+            while(rs.next()){
+              result.add(rs.getString("user_email"));
+              System.out.println(rs.getString("user_email"));
+            }
+          }
+        
+        catch(Exception e){System.out.println(e);}
+        
+        return result;
+    }
+    
     public ArrayList<String> searchUser(String searchWord){
 
         //search by email, phonenumber, screenname
@@ -111,6 +136,8 @@ public class BuzMoSystem {
           System.out.println(sql);
           ResultSet rs = st.executeQuery(sql);
 
+
+
           while(rs.next()){
             result.add(rs.getString("name") + " " + rs.getString("email"));
             System.out.println(rs.getString("name"));
@@ -120,6 +147,8 @@ public class BuzMoSystem {
 
         return result;
     }
+
+    
 
     public void requestFriend(String receiver){
         //update in database
