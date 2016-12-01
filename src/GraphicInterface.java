@@ -174,6 +174,8 @@ public class GraphicInterface{
        //groupRequestsButton = new JButton("Group Requests");
        userSearchButton = new JButton("Search Users");
 
+
+
        add(new JLabel("welcome"));
 
 
@@ -222,6 +224,15 @@ public class GraphicInterface{
              for(int i = 0; i < r.size(); i++){
                r_str += r.get(i) + "\n";
              }
+
+             r = sys.searchTopic(input1);
+             //r_str = "";
+
+             for(int i = 0; i < r.size(); i++){
+               r_str += r.get(i) + "\n";
+             }
+
+
 
              JOptionPane.showMessageDialog(null, r_str);
          }
