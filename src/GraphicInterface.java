@@ -184,6 +184,8 @@ public class GraphicInterface{
        userSearchButton = new JButton("Search Users");
        logoutButton = new JButton("Logout");
 
+
+
        add(new JLabel("welcome"));
 
 
@@ -234,6 +236,15 @@ public class GraphicInterface{
              for(int i = 0; i < r.size(); i++){
                r_str += r.get(i) + "\n";
              }
+
+             r = sys.searchTopic(input1);
+             //r_str = "";
+
+             for(int i = 0; i < r.size(); i++){
+               r_str += r.get(i) + "\n";
+             }
+
+
 
              JOptionPane.showMessageDialog(null, r_str);
          }

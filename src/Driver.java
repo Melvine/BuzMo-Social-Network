@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 
 public class Driver {
   public static void main(String[] args) {
-        GraphicInterface test = new GraphicInterface();
+      GraphicInterface test = new GraphicInterface();
 
 
 
@@ -15,6 +15,6 @@ public class Driver {
       //sys.listofFriendRequests("b");
       //System.out.println("in");
       //sys.searchUser("ChrisBrown@gmail.com");
-
+      //sys.searchTopic("rapper");
   }
 }
