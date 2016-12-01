@@ -10,6 +10,12 @@ public class Person {
     String screenname = "";
     String topicwords;
 
+   Person(){
+     email = "";
+     name = "hi";
+     phone = "";
+     password = "";
+   }
 
    Person(String e, String n, String pn, String sn, String pw){
        name = n;
@@ -30,7 +36,12 @@ public class Person {
    public String getPhoneNum(){
      return phone;
    }
-//
+
+   public String getEmail(){
+      return email;
+
+
+   }
 //    public String GetScreenName(){
 //
 //    }

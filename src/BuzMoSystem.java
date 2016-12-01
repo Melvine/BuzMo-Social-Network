@@ -1,6 +1,7 @@
 /**
  * Created by Melvine on 11/27/16.
  */
+import java.util.*;
 import javax.swing.*;
 import java.sql.* ;
 import java.awt.BorderLayout;
@@ -30,10 +31,12 @@ public class BuzMoSystem {
         // catch(Exception e){System.out.println(e);}
 
         //INITIATE USER INTERFACE
-        //GraphicInterface test = new GraphicInterface();
-        BuzMoSystem sys = new BuzMoSystem();
+        GraphicInterface test = new GraphicInterface();
 
-        sys.SearchUser("ChrisBrown@gmail.com");
+
+        //DEBUG
+        //BuzMoSystem sys = new BuzMoSystem();
+        //sys.SearchUser("ChrisBrown@gmail.com");
 
     }
 
@@ -41,6 +44,8 @@ public class BuzMoSystem {
     System Features
     */
     BuzMoSystem(){
+      // user = new Person();
+
       try{
           Class.forName("oracle.jdbc.driver.OracleDriver");
           String url = "jdbc:oracle:thin:@uml.cs.ucsb.edu:1521:xe";
@@ -48,11 +53,6 @@ public class BuzMoSystem {
           String password = "782";
 
           con= DriverManager.getConnection(url,username, password);
-
-
-          //initiate friends table/list for user
-          createFriendsTable(con);
-
 
         }
         catch(Exception e){System.out.println(e);}
@@ -70,7 +70,7 @@ public class BuzMoSystem {
 
           while(rs.next())
               user = new Person(rs.getString("email"), rs.getString("name"), rs.getString("phone_num"), rs.getString("screen_name"), rs.getString("password"));
-          con.close();
+
       }
       catch(Exception e){System.out.println(e);}
       System.out.println(user.getPhoneNum());
@@ -93,17 +93,22 @@ public class BuzMoSystem {
               "'" + pn + "', '" +
               sn + "', " +
               "'" + pw + "')";
+
             System.out.println(sql);
             st.executeUpdate(sql);
-            con.close();
+
 
         }catch(Exception e){System.out.println(e);}
+
     }
 
-    public void SearchUser(String searchWord){
+
+
+    public ArrayList searchUser(String searchWord){
 
         //search by email, phonenumber, screenname
-
+        ArrayList<String> result = new ArrayList<String>();
+        //result.add("A");
         try{
           Statement st = con.createStatement();
           String sql = "SELECT * FROM mnguyen00.person WHERE email = '" + searchWord +
@@ -112,18 +117,21 @@ public class BuzMoSystem {
           ResultSet rs = st.executeQuery(sql);
 
           while(rs.next()){
+            result.add(rs.getString("name") + " " + rs.getString("email"));
             System.out.println(rs.getString("name"));
           }
-          con.close();
-
         }
-
         catch(Exception e){System.out.println(e);}
 
+        return result;
     }
 
     public void UserSummary(){
 
+    }
+
+    public String getUserName(){
+      return user.getName();
     }
 
     public void PostMessage(){
@@ -151,54 +159,30 @@ public class BuzMoSystem {
 
     }
 
-    public static void createFriendsTable(Connection c){
-        // try{
-        //   Statement st = con.createStatement();
-        //   sql = "CREATE TABLE pendingFriendList " + "(sender VARCHAR(20) NOT NULL, " + " receiver VARCHAR(20) NOT NULL)";
-        //                 st.executeQuery(sql);
-
-        //                 sql = "CREATE TABLE friendList " + "(owner VARCHAR(20) NOT NULL, " +
-        //                 " friend VARCHAR(20) NOT NULL)";
-        //                 st.executeQuery(sql);
-
-        // }
-        // catch(Exception e){System.out.println(e);}
-
-    }
 
 
-    public void FriendRequest(String receiver){
+    public void requestFriend(String receiver){
         //update in database
-        // try{
+        try{
+          Statement st = con.createStatement();
+          String sender = user.getEmail();
 
-        //     //int flag;
-        //     Statement st = con.createStatement();
-        //     String senderEmail = BuzMoSystem.userEmail;
+          String sql = "INSERT INTO mnguyen00.FriendRequest VALUES('" + sender + "'," + "'" + receiver + "'," + "NULL" + ")";
+          System.out.println(receiver);
 
-        //     String sql = "INSERT INTO pendingFriendList " +
-        //     "VALUES ('" + senderEmail + "', " + " '" + receiver + "')";
-        //     st.executeUpdate(sql);
-
-
-        //                   // //check if friend is already pending friend
-        //                   // String sql = "SELECT * FROM friendList F WHERE F.friend = '" + f +"'";
-
-        //                   // System.out.println(sql);
-        //                   // ResultSet rs = st.executeQuery(sql);
-
-        //                   // while(rs.next()){
-        //                   //     flag = rs.getInt(1);
-        //                   //     if (flag > 0){
-        //                   //       return;
-        //                   //     }
+          // String sql = "INSERT INTO mnguyen00.person VALUES('" + em + "', " +
+          //   "'" + n + "', " +
+          //   "'" + pn + "', '" +
+          //   sn + "', " +
+          //   "'" + pw + "')";
 
 
-        // }
-
-        // catch(Exception e){System.out.println(e);}
-        // System.out.println(user.getPhoneNum());
+          System.out.println(sql);
+          st.executeUpdate(sql);
 
 
+        }
+        catch(Exception e){System.out.println(e);}
     }
 
     public void acceptRequest(Connection c, String acceptedUser){
