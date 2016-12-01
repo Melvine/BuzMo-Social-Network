@@ -36,7 +36,10 @@ public class BuzMoSystem {
 
         //DEBUG
         //BuzMoSystem sys = new BuzMoSystem();
-        //sys.SearchUser("ChrisBrown@gmail.com");
+        //System.out.println("out");
+        //sys.listofFriendRequests("b"); 
+        //System.out.println("in");
+        //sys.searchUser("ChrisBrown@gmail.com");
 
     }
 
@@ -170,11 +173,7 @@ public class BuzMoSystem {
           String sql = "INSERT INTO mnguyen00.FriendRequest VALUES('" + sender + "'," + "'" + receiver + "'," + "NULL" + ")";
           System.out.println(receiver);
 
-          // String sql = "INSERT INTO mnguyen00.person VALUES('" + em + "', " +
-          //   "'" + n + "', " +
-          //   "'" + pn + "', '" +
-          //   sn + "', " +
-          //   "'" + pw + "')";
+         
 
 
           System.out.println(sql);
@@ -185,36 +184,62 @@ public class BuzMoSystem {
         catch(Exception e){System.out.println(e);}
     }
 
-    public void acceptRequest(Connection c, String acceptedUser){
-        // try{
-        //     String receiverEmail = BuzmoJFrame.userEmail;
-        //     Statement st = con.createStatement();
+    // public void acceptRequest(String acceptedUser){
+    //     try{
+    //         String receiver = user.getEmail();
+    //         Statement st = con.createStatement();
 
-        //     String sql = "DELETE FROM pendingFriendList P " +
-        //     "WHERE P.receiver='" + receiverEmail + "' " +
-        //     "AND C.sender='" + acceptedUser + "'";
-        //     st.executeUpdate(sql);
+    //         String sql = "DELETE FROM FriendRequest WHERE friend_email =" +
+    //         "WHERE P.receiver='" + receiverEmail + "' " +
+    //         "AND C.sender='" + acceptedUser + "'";
+    //         st.executeUpdate(sql);
 
-        //     // add to contact list both ways
-        //     sql = "INSERT INTO CONTACT_LISTS " +
-        //     "VALUES ('" + acceptedUser + "', " +
-        //     " '" + receiverEmail + "')";
-        //     st.executeUpdate(sql);
+    //         // add to contact list both ways
+    //         sql = "INSERT INTO CONTACT_LISTS " +
+    //         "VALUES ('" + acceptedUser + "', " +
+    //         " '" + receiverEmail + "')";
+    //         st.executeUpdate(sql);
 
-        //     sql = "INSERT INTO CONTACT_LISTS " +
-        //     "VALUES ('" + receiverEmail + "', " +
-        //     " '" + acceptedUser + "')";
-        //     st.executeUpdate(sql);
+    //         sql = "INSERT INTO CONTACT_LISTS " +
+    //         "VALUES ('" + receiverEmail + "', " +
+    //         " '" + acceptedUser + "')";
+    //         st.executeUpdate(sql);
 
-        // }
-        // catch(Exception e){System.out.println(e);}
-    }
+    //     }
+    //     catch(Exception e){System.out.println(e);}
+    // }
 
     public void managerController(){
 
     }
 
+ 
+    public ArrayList listofFriendRequests(String sender){
+        ArrayList<String> result = new ArrayList<String>();
+        try{
+            
+            //String sender = user.getEmail();
+            Statement st = con.createStatement();
+            String sql = "SELECT * FROM mnguyen00.FriendRequest WHERE friend_email = '" + sender + "'";
+            System.out.println(sql);
 
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                result.add(rs.getString("user_email"));
+                System.out.println(rs.getString("user_email"));
+            }
+ 
+        }
+
+        catch(Exception e){System.out.println(e);}
+        return result;
+
+    }
+
+  
+
+  
 
     /*
     * Validity Checks
