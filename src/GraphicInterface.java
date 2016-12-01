@@ -24,7 +24,7 @@ public class GraphicInterface{
    private JButton myGroupsButton;
 
    private JButton userSearchButton;
-   //private JButton addFriendButton;
+   private JButton addFriendButton;
    private JButton friendRequestsButton;
    //private JButton groupRequestsButton;
 
@@ -46,6 +46,8 @@ public class GraphicInterface{
    private JPanel loginPanel;
    private JPanel registerPanel;
 
+   JComboBox opList;
+
    BuzMoSystem sys = new BuzMoSystem();
 
    LoginPanel lPanel = new LoginPanel();
@@ -54,6 +56,7 @@ public class GraphicInterface{
    MyCirclePanel mcPanel = new MyCirclePanel();
    RequestFriendPanel rfPanel = new RequestFriendPanel();
    UserSearchPanel usPanel = new UserSearchPanel();
+   AddFriendPanel afPanel = new AddFriendPanel();
 
    JPanel prevPanel = lPanel;
    CardLayout layout = new CardLayout();
@@ -67,7 +70,9 @@ public class GraphicInterface{
       cardPanel.add(uPanel, "userface");
       cardPanel.add(mcPanel, "mycircle");
       cardPanel.add(rfPanel, "requestfriend");
+      cardPanel.add(afPanel, "acceptfriend");
       cardPanel.add(usPanel, "usersearch");
+
 
       JFrame frame = new JFrame("BuzMo");
       frame.add(cardPanel);
@@ -91,8 +96,10 @@ public class GraphicInterface{
               layout.show(cardPanel,"userface");
             }else if("Search Users".equals(command)){
               layout.show(cardPanel,"usersearch");
-            }else if("Friend Requests".equals(command)){
+            }else if("Request Friends".equals(command)){
               layout.show(cardPanel,"requestfriend");
+            }else if("Accept Friends".equals(command)){
+              layout.show(cardPanel,"acceptfriend");
             }
         }
     }
@@ -159,6 +166,24 @@ public class GraphicInterface{
           JOptionPane.showMessageDialog(null, r_str);
       }
     }
+
+    private class NewFriendListener implements ActionListener{
+      public void actionPerformed(ActionEvent event){
+          // String userOption = opList.getSelectItem();
+          // if(userOption == "accept"){
+          //   updateFriendRequestTable(user_email,friend_email,'1');
+          // }else{
+          //   updateFriendRequestTable(user_email,friend_email,'0');
+          // }
+
+          //if right box return 1, if left box return 0
+          //if 1, get user email and requester email add to FriendList
+          //else
+          //if 0 or 1 delete off requestfriend db
+          //if 0 or 1 return back to home
+      }
+    }
+
 
    class LoginPanel extends JPanel{
      LoginPanel(){
@@ -234,18 +259,22 @@ public class GraphicInterface{
        //else
        //if 0 or 1 delete off requestfriend db
        //if 0 or 1 return back to home
-       jButton1 = new JButton("Accept");
-       jButton2 = new JButton("Reject");
-       jButton3 = new JButton("Accept");
-       jButton4 = new JButton("Reject");
+      jLabel1 = new JLabel("<html>hi<br>hii<br>hiii</html>");
 
+       String[] options = {"accept", "reject"};
+       jButton1 = new JButton("Submit");
+       jButton2 = new JButton("Home");
+
+       opList = new JComboBox(options);
+       textField1 = new JTextField("", 20);
+
+       add(opList);
        add(textField1);
        add(jButton1);
        add(jButton2);
-
-       jButton1.addActionListener(new UserSearchListener());
+       add(jLabel1);
+       jButton1.addActionListener(new ButtonListener());
        jButton2.addActionListener(new ButtonListener());
-
      }
    }
   //  class MyFriendsPanel extends JPanel{
@@ -287,8 +316,8 @@ public class GraphicInterface{
        myFriendsButton = new JButton("MyFriends");
        myGroupsButton = new JButton("MyGroups");
 
-       //addFriendButton = new JButton("Add Friend");
-       friendRequestsButton = new JButton("Friend Requests");
+       addFriendButton = new JButton("Accept Friends");
+       friendRequestsButton = new JButton("Request Friends");
        //groupRequestsButton = new JButton("Group Requests");
        userSearchButton = new JButton("Search Users");
 
@@ -300,14 +329,14 @@ public class GraphicInterface{
        add(myFriendsButton);
        add(myGroupsButton);
 
-       //add(addFriendButton);
+       add(addFriendButton);
        add(friendRequestsButton);
        add(userSearchButton);
 
        userSearchButton.addActionListener(new ButtonListener());
        myCircleButton.addActionListener(new ButtonListener());
        friendRequestsButton.addActionListener(new ButtonListener());
-       //addFriendButton.addActionListener(new ButtonListener());
+       addFriendButton.addActionListener(new ButtonListener());
      }
    }
 
